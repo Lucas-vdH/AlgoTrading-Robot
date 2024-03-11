@@ -280,6 +280,74 @@ else
     fi
 fi
 ```
+```python
+#!/Library/Frameworks/Python.framework/Versions/3.11/bin/python3
+import sys
+sys.path.append('/Users/lucasvanderhorst/Library/Python/3.11/lib/python/site-packages')
+import logging
+logging.basicConfig(filename='/tmp/Projects/AlgoTrading.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+from algotrading import AlgoTradingLive
+from BrokerConnection import PortfolioTracker, ModifiedDietzReturn, OrdersHistory
+from EmailSender import SendEmail
+from MarketStudy import MarketStudy
+import datetime as dt
+import numpy as np
+import calendar
+
+# current_time = dt.datetime.now()
+logging.info('AlgorithmicTrading script has started')
+
+
+now=dt.datetime.now()
+year=now.year
+month=now.month
+day=now.day
+hour=now.hour
+minute=now.hour
+
+logging.info('Generating signals and market orders')
+#Calling TradingAlgorithm
+tickers=np.loadtxt('/Users/lucasvanderhorst/AlgoTrading/DataStorage/TopAssets.txt', dtype=str).tolist()
+logging.info(f'This month\'s top assets are {tickers}')
+orders=AlgoTradingLive('MACD', tickers, '60d', '5m', 4, 1, 10)
+
+logging.info('The following orders have been placed\n'
+             f'{orders}')
+
+
+csvpath1=f'/Users/lucasvanderhorst/AlgoTrading/DataStorage/PortfolioHistory{year}|{month}.csv'
+logging.info('Adding new data point to porfolio history')
+
+#Collecting portfolio data point
+PortfolioTracker(csvpath1)
+
+weekdays=[week[:5] for week in calendar.monthcalendar(year, month)]
+weekdays=[day for week in weekdays for day in week if day!=0]
+first_weekday=min(weekdays)
+last_weekday=max(weekdays)
+
+limit=60
+csvpath2=f'/Users/lucasvanderhorst/AlgoTrading/{limit}OrdersHistory.csv'
+if day==first_weekday and hour==15 and 27<minute<33:
+    #Adjusting for cashflow (needs to be done manually with the dates and amounts) and calculating the return on the first weekday of the month
+    ModifiedDietzReturn(csvpath1, [], [], savechanges=True)
+    #Collecting last closed orders (to be changed to closed orders of last month)
+    OrdersHistory(limit, csvpath2)
+    subject=f'Portfolio performance {year}|{month}'
+    body=('Hello :D,\n\n'
+          f'Find attached below the csv file with the history of the portfolio for {year}|{month} and of the last {limit} orders ;).\n\n\n'
+          'Kind regards,\nYour automated self')
+    #Sending email with the results
+    SendEmail(subject, body, csvpath1, csvpath2)
+
+elif day==last_weekday and hour==21 and 52<minute<58: #and month%2==0 to change tickers bi-monthly (after all, the backtesting was done in a two month time frame)
+    MarketStudy(2, 4, True)
+
+
+
+
+logging.info('AlgorithmicTrading script has ended\n\n\n')
+```
 </details>
 
 3. Putting a sleeping element in the bash script created an issue. If I was using my computer and it went to sleep for a period of time, and I then put my computer to sleep because I am done using it, the sleep timer pauses and continues with the automatic wake of my computer. Since the script if sleeping still, it does not deactivate the automatic sleeping of the computer, which turns off after a few seconds. Thus rose the need of a second bash script to keep running in the background as well, whose sole task is to kill the sleep timer of the original bash script if the time of day is that of the computer wake time. In summary, the computer wakes up a bit before market opening, bash script 2 kills the sleep of bash script 1, and then bash script 1 disables the automatic computer sleep and runs the trading algorithm for the remaining of the market day.
