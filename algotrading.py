@@ -139,8 +139,8 @@ def GetAlpacaConnection() -> tuple([alpaca.trading.client.TradingClient, alpaca.
     '''
     Connects to Alpaca's API and returns a TradingClient and TradeAccount object.
     '''
-    api_key='PK6B2UAK03CSLZI5V509'
-    api_secret='UFr4jJckww21bTBMc5d0QoL6PDNbaa4BlOqzunUb'
+    api_key='***'
+    api_secret='***'
     trader=TradingClient(api_key, api_secret, paper=True)
     account=trader.get_account()
     return trader, account
@@ -542,7 +542,7 @@ def PerformMarketStudy(ntopsectors: int, ntopassets: int, strategy: str, period:
        'Return': [],
        'Transactions': []})
     
-    ssapikey='310b76a2-0dcc-4a47-9742-25dbd3fc89e9'
+    ssapikey='***'
     ss=StockSymbol(ssapikey)
 
 
@@ -623,7 +623,7 @@ def PerformParametersStudy(strategy: str, parameters: {str: int | str}, studypar
     if len(studyparameters) == 1:
         #Loading the tickers to loop through
         s=Screener()
-        ssapikey='310b76a2-0dcc-4a47-9742-25dbd3fc89e9'
+        ssapikey='***'
         ss=StockSymbol(ssapikey)
         if sector:
             data=s.get_screeners(sector)
@@ -714,7 +714,7 @@ def SendEmail(subject: str, body: str, pathstocsvs: [str] =[]):
     '''
     emailsender='automail.lucas@gmail.com'
     emailreceiver='vanderhorst.lucas@gmail.com'
-    emailpassword='lgvr ibbf rmpc sgvo'
+    emailpassword='***'
 
     em=MIMEMultipart()
     em['From']=emailsender
