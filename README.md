@@ -1,4 +1,4 @@
-# AlgoTrading-Robot
+# AlgoTrading Robot
 With the aim of self-learned education, I delved into the creation of my own AlgoTrading Robot. In this project, while I would study the basics of trading principles and strategies, my goal was to create a fully functional and autonomous trading robot in my local machine. In what follows, I discuss the steps I took to achieve this. Note that I used a Mac High Sierra 10.13.6 for this project.
 
 ### Architecture of the project
