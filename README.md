@@ -853,10 +853,9 @@ Finally, after managing the correct functioning of the algorithm and syncronizat
 <details>
 <summary>Click to see backtesting results for two similar strategies</summary>
 MACD zero line crossing
-<a href="images/MarketStudyResults.png" />
-
+<img src="images/MarketStudyResults.png" />
+  
 MACD signal crossing
-<a href="images/MarketStudyResults_SignalCross.png" />
-
+<img src="images/MarketStudyResults_SignalCross.png" />
 
 </details>
