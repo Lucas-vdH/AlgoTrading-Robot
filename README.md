@@ -856,6 +856,6 @@ MACD zero line crossing
 <img src="images/MarketStudyResults.png" />
   
 MACD signal crossing
-<img src="images/MarketStudyResults_SignalCross.png" />
+<img src="images/MarketStudyResults_MACDSignalCross.png" />
 
 </details>
