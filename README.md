@@ -850,3 +850,13 @@ def SendEmail(subject: str, body: str, pathstocsvs: [str] =[]):
 
 ### Results 
 Finally, after managing the correct functioning of the algorithm and syncronization of the different scripts, it was time to put it to work and perform a forward testing, meaning that no real money is used, only fake paper but on the real market. Given the simplicity of the employed strategy, the results were, unsurprisingly, far from ideal, with negative returns in fact. Nevertheless, positive returns were not the objective and the learning I gained from this project were broad and satisfactory, as everything work as intended in the end. Many more ideas and features were available to implement but I decided to stop the project here and explore new topics and projects. Now, the scripts are available shall I decide in the future to properly put them to work. Defining a new strategy is as simple as giving it a name, defining the buy and sell conditions for signal generation and calling the strategy name in the market orders function.
+<details>
+<summary>Click to see backtesting results for two similar strategies</summary>
+MACD zero line crossing
+<a href="images/MarketStudyResults.png" />
+
+MACD signal crossing
+<a href="images/MarketStudyResults_SignalCross.png" />
+
+
+</details>
